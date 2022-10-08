@@ -16,7 +16,7 @@ public class Order {
 
     // 계산 로직
     public int calculatePrice() {
-        return itemPrice = discountPrice;
+        return itemPrice - discountPrice;
     }
 
     public Long getMemberId() {

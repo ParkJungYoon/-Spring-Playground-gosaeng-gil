@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class ApplicationContextInfoTest {
+class ApplicationContextInfoTest {
 
     // 스프링 컨테이너 생성
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);

@@ -20,6 +20,8 @@ public class ApplicationContextSameBeanFindTest {
 
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
 
+    // getBean()할 때 이름,타입을 줄 수도 있고 타입만 줄 수도 있다.
+    // 이때 타입만으로 찾을 때 중복 타입이 있으면 오류 발생
     @Test
     @DisplayName("타입으로 조회시 같은 타입이 둘 이상 있으면, 중복 오류가 발생한다.")
     void findBeanByTypeDuplicate() {
@@ -35,6 +37,7 @@ public class ApplicationContextSameBeanFindTest {
         assertThat(memberRepository).isInstanceOf(MemberRepository.class);
     }
 
+    // 같은 타입을 가지는 Bean 모두 조회하고 싶어!
     @Test
     @DisplayName("특정 타입을 모두 조회하기")
     void findAllBeanByType() {
@@ -46,7 +49,7 @@ public class ApplicationContextSameBeanFindTest {
         assertThat(beansOfType.size()).isEqualTo(2);
     }
 
-    // 중복으로 AppConfig 여기 작성
+    // 중복으로 AppConfig 여기 작성, 같은 타입 존재
     @Configuration
     static class SameBeanConfig {
         @Bean

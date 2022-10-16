@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class ConfigurationSingletonTest {
 
     @Test
@@ -24,5 +26,18 @@ public class ConfigurationSingletonTest {
         System.out.println("memberService -> memberRepository = " + memberRepository1);
         System.out.println("orderService -> memberRepository = " + memberRepository2);
         System.out.println("memberRepository = " + memberRepository);
+
+        assertThat(memberService.getMemberRepository()).isSameAs(memberRepository);
+        assertThat(orderService.getMemberRepository()).isSameAs(memberRepository);
     }
+
+    // AppConfig@CGLIB가 AppConfig를 상속받음.
+    @Test
+    void configurationDeep() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        System.out.println("bean = " + bean.getClass());
+    }
+
 }

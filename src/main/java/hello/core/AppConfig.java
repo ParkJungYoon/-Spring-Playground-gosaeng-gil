@@ -11,8 +11,8 @@ import hello.core.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-    // @Bean memberService => new MemoryMemberRepository()
-    // @Bean orderService => new MemoryMemberRepository()
+// @Bean memberService => new MemoryMemberRepository()
+// @Bean orderService => new MemoryMemberRepository()
 @Configuration
 public class AppConfig {
 

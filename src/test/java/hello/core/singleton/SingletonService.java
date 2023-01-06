@@ -10,6 +10,7 @@ public class SingletonService {
         return instance;
     }
 
+    // private 생성자를 만들어서 외부에서 new해서 생성할 수 없도록 한다. -> 싱글톤
     private SingletonService() {
     }
 

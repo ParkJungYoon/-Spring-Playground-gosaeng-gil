@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
-    // 생성자를 통해서 주입(연결): MemoryRepository 들어올거임.
+    // 자동 의존관계 주입) 생성자를 통해서 주입(연결): MemoryRepository 들어올거임.
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;

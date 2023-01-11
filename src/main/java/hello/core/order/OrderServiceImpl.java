@@ -16,6 +16,7 @@ public class OrderServiceImpl implements OrderService {
     // 인터페이스에만 의존하도록 코드 변경
     private final DiscountPolicy discountPolicy;
 
+    // [생성자 주입] 생성자가 1개만 있으면 @Autowired를 생략해도 자동으로 주입해줌
     // 여기서 주입받기 때문에 인터페이스에만 의존. discountPolicy에 뭐가 들어올 지 모름.
     @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {

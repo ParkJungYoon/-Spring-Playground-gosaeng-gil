@@ -21,12 +21,17 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;  // 주문 회원
 
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    // 연관관계 주인으로 둔다.
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
     private Delivery delivery;  // 배송 정보
 
     // LocalDateTime쓰면 하이버네이트가 자동으로 지원해준다.
     private LocalDateTime orderDate;  // 주문 시간
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;  // 주문의 상태 [ORDER, CANCEL]
 }

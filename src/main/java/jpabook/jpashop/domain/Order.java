@@ -25,6 +25,7 @@ public class Order {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     // 연관관계 주인으로 둔다.
+    // 1:1 관계에서는 fk를 어디에 둬도 된다. 이때 보통 엑세스가 많이 발생하는 곳에 fk를 둔다.
     @OneToOne
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;  // 배송 정보

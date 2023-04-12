@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,10 +12,14 @@ import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
+/**
+ * @NoArgsConstructor(access = AccessLevel.PROTECTED)
+ * 외부에서 생성메서드가 아닌 기본메서드로 생성하지 못하도록 (new OrderItem 안도이~)
+ */
 @Entity
 @Table(name = "orders")
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id

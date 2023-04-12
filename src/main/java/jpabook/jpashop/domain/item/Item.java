@@ -27,9 +27,11 @@ public abstract class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
-    //==비즈니스 로직==//
-    // 보통 수량을 수정할 때 수량을 가져와서 수정해서 주고 했다. 하지만 객체지향 설계를 생각했을 때 그 값을 가지고
-    // 있는 객체에 비즈니스 로직이 있는게 좋다.
+    /**==비즈니스 로직==//
+     * 보통 수량을 수정할 때 수량을 가져와서 수정해서 주고 했다.
+     * 하지만 객체지향 설계를 생각했을 때 그 값을 가지고 있는 객체에 비즈니스 로직이 있는게 좋다.
+     * setter를 사용하지 말자.
+     */
     /**
      * stock 증가
      */

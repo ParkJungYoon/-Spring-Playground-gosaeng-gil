@@ -12,10 +12,12 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Table(name = "orders")
-@Getter @Setter
+@Getter
+@Setter
 public class Order {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "order_id")
     private Long id;
 
@@ -23,27 +25,29 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;  // 주문 회원
 
-    /** 즉시로딩(EAGER)을 사용한 경우
+    /**
+     * 즉시로딩(EAGER)을 사용한 경우
      * n+1 문제
      * order조회 하나 눌렀는데 결과가 100개면 member를 가져오기 위해서 단방 쿼리를 100번 날림
      * N(member) + 1(order)
-     *
+     * <p>
      * OneToMany는 fetch 전략이 Lazy인데,
      * ManyToOne은 fetch 전략이 Eager이다.
-     *
+     * <p>
      * 결론: ManyToOne, OneToOne 모두 Lazy로 바꿔줘야한다.
      */
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    /** cascade
+    /**
+     * cascade
      * 1. cascade를 안하면 엔티티를 모두 persist 해줘야 한다.
      * persist(orderItemA)
      * persist(orderItemB)
      * persist(orderItemC)
      * persist(order)
-     *
+     * <p>
      * 2. cascade를 하면 한번만 하면 전파
      * persist(order)
      */
@@ -76,5 +80,45 @@ public class Order {
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    //==생성 메서드==//
+    // ... 은 가변인자 파라미터
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    //==비즈니스 로직==//
+
+    /**
+     * 주문 취소
+     */
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP) {
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    //==조회 로직==//
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice() {
+        return orderItems.stream()
+                .mapToInt(OrderItem::getTotalPrice)
+                .sum();
     }
 }

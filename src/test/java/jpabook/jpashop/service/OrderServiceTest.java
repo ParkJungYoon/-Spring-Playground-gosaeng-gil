@@ -9,7 +9,6 @@ import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,8 @@ import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// 지금은 통합 테스트 형태
+// 도메인 모델 패턴을 사용하면 엔티티만 가지고 단위 테스트 가능하다.
 // 원래 테스트를 할 때는 db랑 엮지 않고, 스프링도 연결안하고 딱 순수 메서드 체크가 좋다.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

@@ -54,17 +54,25 @@ public class ItemController {
     }
 
     // item 수정에 대한 권한이 있는지 체크하는게 서버단에 있어야 한다.
+    // form은 웹 계층에서만 사용하자
     @PostMapping("/items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form) {
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
 
-        itemService.saveItem(book);
+        // 실제로는 수정할 때 change 또는 addStock 등 의미있는 메서드를 사용해야한다. set으로 다 깔면 안도이
+//        Book book = new Book();
+//        book.setId(form.getId());
+//        book.setName(form.getName());
+//        book.setPrice(form.getPrice());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
+        /**
+         * 병합(merge) 사용
+         * saveItem을 타고 가면 id값이 있을 때 merge를 사용함.
+         */
+//        itemService.saveItem(book);
+
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
     }
 }

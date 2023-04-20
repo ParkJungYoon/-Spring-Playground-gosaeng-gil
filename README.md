@@ -3,7 +3,7 @@
 - 스프링 부트 스타터(https://start.spring.io/)
 - Project: Gradle - Groovy Project
 - 사용 기능: web, lombok
-- groupId: jpabook artifactId: springmvc
+- groupId: hello artifactId: servlet
 - Spring Boot : 2.7.8
 - java : 11
 - packaging : War
